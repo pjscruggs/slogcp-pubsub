@@ -1,7 +1,7 @@
 # slogcp-pubsub
 
 `github.com/pjscruggs/slogcp-pubsub` provides Pub/Sub helpers for
-[slogcp v2](https://github.com/pjscruggs/slogcp).
+[slogcp](https://github.com/pjscruggs/slogcp).
 
 - `Inject` / `Extract` for trace context propagation via
   `pubsub.Message.Attributes`.
@@ -20,14 +20,15 @@ go get github.com/pjscruggs/slogcp-pubsub
 
 ```go
 import (
-    "github.com/pjscruggs/slogcp/v2"
     slogcppubsub "github.com/pjscruggs/slogcp-pubsub"
+    "github.com/pjscruggs/slogcp/v2"
 )
 ```
 
-The package name remains `slogcppubsub`. Applications migrating from slogcp v1
-update the import path and use slogcp v2 throughout their logger setup and
-context helpers. Existing Pub/Sub options and callbacks keep the same API.
+The package name remains `slogcppubsub`. Applications migrating from the
+previous bundled package update their import path and use the same core module
+throughout their logger setup and context helpers. Existing Pub/Sub options and
+callbacks keep the same API.
 
 ## Publisher (inject)
 
