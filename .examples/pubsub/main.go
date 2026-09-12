@@ -29,7 +29,8 @@ import (
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 
 	"github.com/pjscruggs/slogcp/v2"
-	"github.com/pjscruggs/slogcp-pubsub"
+
+	slogcppubsub "github.com/pjscruggs/slogcp-pubsub"
 )
 
 // main runs the Pub/Sub logging example.
