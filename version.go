@@ -15,4 +15,4 @@
 package slogcppubsub
 
 // Version is the current version of the slogcp Pub/Sub module.
-var Version = "v1.0.0"
+var Version = "v1.0.1"
