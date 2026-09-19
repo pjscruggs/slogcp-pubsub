@@ -6,7 +6,7 @@ toolchain go1.27.1
 
 require (
 	cloud.google.com/go/pubsub/v2 v2.0.0
-	github.com/pjscruggs/slogcp/v2 v2.0.0-20260912111130-6c625f7e5df6
+	github.com/pjscruggs/slogcp/v2 v2.0.0
 	go.opentelemetry.io/otel v1.44.0
 	go.opentelemetry.io/otel/sdk v1.44.0
 	go.opentelemetry.io/otel/trace v1.44.0
