@@ -28,7 +28,9 @@ import (
 )
 
 const (
+	// defaultConsumerSpanName names spans created for received messages by default.
 	defaultConsumerSpanName = "pubsub.process"
+	// envTrustRemoteTrace names the environment variable controlling remote trace trust.
 	envTrustRemoteTrace     = "SLOGCP_TRUST_REMOTE_TRACE"
 )
 
@@ -42,6 +44,7 @@ type AttrTransformer func(context.Context, []slog.Attr, *pubsub.Message, *Messag
 // Option configures slogcppubsub behavior.
 type Option func(*config)
 
+// config holds the resolved Pub/Sub logging and tracing options.
 type config struct {
 	logger                     *slog.Logger
 	projectID                  string
