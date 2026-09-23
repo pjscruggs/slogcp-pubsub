@@ -29,7 +29,7 @@ const (
 	// googclientPrefix prefixes trace attributes written by the Google client.
 	googclientPrefix = "googclient_"
 	// baggageKey names the message attribute used for propagated baggage.
-	baggageKey       = "baggage"
+	baggageKey = "baggage"
 )
 
 // Inject injects trace context from ctx into msg.Attributes, creating the
