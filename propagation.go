@@ -26,8 +26,10 @@ import (
 )
 
 const (
+	// googclientPrefix prefixes trace attributes written by the Google client.
 	googclientPrefix = "googclient_"
-	baggageKey       = "baggage"
+	// baggageKey names the message attribute used for propagated baggage.
+	baggageKey = "baggage"
 )
 
 // Inject injects trace context from ctx into msg.Attributes, creating the
@@ -190,6 +192,7 @@ func extractGoogClientSpanContext(attrs map[string]string, cfg *config) (context
 	return extracted, trace.SpanContextFromContext(extracted)
 }
 
+// lazyCarrier adapts a message attribute map for lazy propagation writes.
 type lazyCarrier struct {
 	attrs        *map[string]string
 	prefix       string
@@ -245,6 +248,7 @@ func (c lazyCarrier) Keys() []string {
 	return keys
 }
 
+// caseInsensitiveCarrier reads message attributes without regard to key case.
 type caseInsensitiveCarrier struct {
 	attrs        map[string]string
 	prefix       string
@@ -318,6 +322,7 @@ func (c *caseInsensitiveCarrier) lookupLower(key string) string {
 	return c.lower[key]
 }
 
+// strictCarrier reads message attributes using exact key matching.
 type strictCarrier struct {
 	attrs        map[string]string
 	prefix       string

@@ -30,8 +30,10 @@ import (
 	"github.com/pjscruggs/slogcp/v2"
 )
 
+// instrumentationName identifies this package in OpenTelemetry spans.
 const instrumentationName = "github.com/pjscruggs/slogcp-pubsub"
 
+// messageInfoKey indexes message metadata stored in a context.
 type messageInfoKey struct{}
 
 // MessageInfo captures message metadata surfaced to handlers via context.
