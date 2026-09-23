@@ -31,7 +31,7 @@ const (
 	// defaultConsumerSpanName names spans created for received messages by default.
 	defaultConsumerSpanName = "pubsub.process"
 	// envTrustRemoteTrace names the environment variable controlling remote trace trust.
-	envTrustRemoteTrace     = "SLOGCP_TRUST_REMOTE_TRACE"
+	envTrustRemoteTrace = "SLOGCP_TRUST_REMOTE_TRACE"
 )
 
 // AttrEnricher can append additional attributes to the derived message logger.
