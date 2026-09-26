@@ -336,6 +336,11 @@ jobs:
             -local github.com/pjscruggs/slogcp-pubsub \
             -w "${example_go_files[@]}"
           (cd .examples/pubsub && go mod tidy)
+          module_graph="$(cd .examples/pubsub && go list -m all)"
+          if grep -Eq '^google\.golang\.org/grpc v1\.84\.0$' <<< "$module_graph"; then
+            echo "Module example selects gRPC v1.84.0 affected by GO-2026-6443." >&2
+            exit 1
+          fi
           (cd .examples/pubsub && go test -race -count=1 ./...)
           (cd .examples/pubsub && \
             "$CI_TOOLS_BIN/govulncheck" ./...)
