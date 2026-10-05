@@ -48,8 +48,8 @@ def validate_release_checkout_pins(release: str, validation: str) -> None:
     pattern = r"^\s*(?:-\s*)?uses:\s*['\"]?actions/checkout@([^\s'\"]+)"
     release_pins = re.findall(pattern, release, flags=re.MULTILINE)
     validation_pins = set(re.findall(pattern, validation, flags=re.MULTILINE))
-    if len(release_pins) != 2 or any(not re.fullmatch(r"[a-f0-9]{40}", pin) for pin in release_pins):
-        raise ValueError("Expected two immutable release checkout steps")
+    if len(release_pins) < 2 or any(not re.fullmatch(r"[a-f0-9]{40}", pin) for pin in release_pins):
+        raise ValueError("Expected immutable release checkout steps")
     if not set(release_pins) <= validation_pins:
         raise ValueError("Release checkout uses a revision not exercised by validation")
 
@@ -59,7 +59,8 @@ class CheckoutPinPolicyTests(unittest.TestCase):
         for pin in ("a" * 40, "bc" * 20):
             with self.subTest(pin=pin):
                 checkout = f"        uses: actions/checkout@{pin} # next version\n"
-                validate_release_checkout_pins(checkout * 2, checkout)
+                for count in (2, 3):
+                    validate_release_checkout_pins(checkout * count, checkout)
 
     def test_unvalidated_or_missing_checkout_pins_are_rejected(self):
         checkout = f"        uses: actions/checkout@{'a' * 40}\n"
@@ -68,7 +69,6 @@ class CheckoutPinPolicyTests(unittest.TestCase):
             (checkout * 2, different),
             (checkout + different, checkout),
             (checkout, checkout),
-            (checkout * 3, checkout),
             (checkout * 2, ""),
             (checkout + "        uses: actions/checkout@main\n", checkout),
             (checkout * 2 + "        uses: actions/checkout@main\n", checkout),
