@@ -2,7 +2,7 @@ module github.com/pjscruggs/slogcp-pubsub
 
 go 1.27.0
 
-toolchain go1.27.3
+toolchain go1.27.4
 
 require (
 	cloud.google.com/go/pubsub/v2 v2.0.0
