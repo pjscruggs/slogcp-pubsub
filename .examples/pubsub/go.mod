@@ -3,7 +3,7 @@ module github.com/pjscruggs/slogcp-pubsub/examples/pubsub
 go 1.27.4
 
 require (
-	cloud.google.com/go/pubsub/v2 v2.8.1
+	cloud.google.com/go/pubsub/v2 v2.9.0
 	github.com/pjscruggs/slogcp-pubsub v0.0.0-unpublished
 	github.com/pjscruggs/slogcp/v2 v2.0.4
 	go.opentelemetry.io/otel v1.47.0
@@ -13,7 +13,7 @@ require (
 
 require (
 	cloud.google.com/go v0.123.0 // indirect
-	cloud.google.com/go/auth v0.24.3 // indirect
+	cloud.google.com/go/auth v0.24.4 // indirect
 	cloud.google.com/go/auth/oauth2adapt v0.3.1 // indirect
 	cloud.google.com/go/compute/metadata v0.10.0 // indirect
 	cloud.google.com/go/iam v1.15.1 // indirect
