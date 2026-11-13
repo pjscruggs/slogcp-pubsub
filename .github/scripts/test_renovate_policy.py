@@ -263,27 +263,22 @@ class RenovatePolicyTests(unittest.TestCase):
         )
         self.assertFalse(rule["enabled"])
 
-    def test_affected_grpc_and_its_api_parent_are_held_in_example(self) -> None:
-        for description, package, allowed in (
-            (
-                "Exclude gRPC v1.84.0 affected by GO-2026-6443",
-                "google.golang.org/grpc",
-                "!/^v?1\\.84\\.0$/",
-            ),
-            (
-                "Hold example API before its dependency on affected gRPC v1.84.0",
-                "google.golang.org/api",
-                "<0.299.0",
-            ),
-        ):
-            with self.subTest(package=package):
-                candidate = self.find_rule(description)
-                self.assertEqual(candidate["matchManagers"], ["gomod"])
-                self.assertEqual(candidate["matchDatasources"], ["go"])
-                self.assertEqual(candidate["matchFileNames"], [".examples/pubsub/go.mod"])
-                self.assertEqual(candidate["matchPackageNames"], [package])
-                self.assertEqual(candidate["allowedVersions"], allowed)
-                self.assertNotIn("matchUpdateTypes", candidate)
+    def test_affected_grpc_stays_excluded_in_example(self) -> None:
+        candidate = self.find_rule("Exclude gRPC v1.84.0 affected by GO-2026-6443")
+        self.assertEqual(candidate["matchManagers"], ["gomod"])
+        self.assertEqual(candidate["matchDatasources"], ["go"])
+        self.assertEqual(candidate["matchFileNames"], [".examples/pubsub/go.mod"])
+        self.assertEqual(candidate["matchPackageNames"], ["google.golang.org/grpc"])
+        self.assertEqual(candidate["allowedVersions"], "!/^v?1\\.84\\.0$/")
+        self.assertNotIn("matchUpdateTypes", candidate)
+
+    def test_example_api_is_not_capped_after_the_grpc_fix(self) -> None:
+        for rule in self.package_rules:
+            if (
+                "google.golang.org/api" in rule.get("matchPackageNames", [])
+                and ".examples/pubsub/go.mod" in rule.get("matchFileNames", [])
+            ):
+                self.assertNotIn("allowedVersions", rule)
 
 
 if __name__ == "__main__":
